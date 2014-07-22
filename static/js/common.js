@@ -5,7 +5,7 @@ $(document).ready(function() {
             useUTC: false
         }
     });
-
+    var socket = io();
     var chart;
     $('#containersound').highcharts({
         chart: {
@@ -14,14 +14,11 @@ $(document).ready(function() {
             marginRight: 10,
             events: {
                 load: function() {
-
-                    // set up the updating of the chart each second
                     var series = this.series[0];
-                    setInterval(function() {
-                        var x = (new Date()).getTime(), // current time
-                            y = Math.random() ;
-                        series.addPoint([x, y], true, true);
-                    }, 1000);
+                    socket.on("info", function(data){
+                        console.log(data);
+                        series.addPoint([data.x,data.y], true, true);
+                    });
                 }
             }
         },

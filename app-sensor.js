@@ -12,10 +12,18 @@ app.get('/',function(req, res){
 });
 
 io.on('connection',function(socket){
-	console.debug('a user has connected');
+	console.log('a user has connected');
+	socket.on('disconnect', function(){
+    	console.log('user disconnected');
+  });
 });
 
-
+setInterval(function(){
+	io.emit('info', {
+		x: (new Date()).getTime(),
+		y: Math.random() * 3
+	});
+},2000);
 
 http.listen(3000,function(){
 	console.log("Starting server at port: 3000");
