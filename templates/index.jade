@@ -1,0 +1,21 @@
+doctype html
+html(lang="en") 
+	head
+		title SensorMonitoring
+		link(rel="stylesheet", href="/public/components/bootstrap/dist/css/bootstrap.css")
+		script(src="/public/components/jquery/dist/jquery.js")
+		script(src="/public/components/highcharts/highcharts.js")
+		script(src="/public/components/highcharts/modules/exporting.js")
+		script(src="/public/components/highcharts/themes/dark-unica.js")
+		script(src="/public/js/common.js")
+	body
+		nav.navbar.navbar-inverse(role="navigation")
+			.container-fluid
+				.navbar-header
+					a.navbar-brand SensorMonitor 
+				p.navbar-text.navbar-right presence bundle (microphone && movementPIR)
+		.container-fluid
+			.row
+				.col-md-8.col-md-offset-2
+					div#containersound
+
