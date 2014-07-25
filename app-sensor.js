@@ -15,7 +15,7 @@ io.on('connection',function(socket){
 	console.log('a user has connected');
 	socket.on('disconnect', function(){
     	console.log('user disconnected');
-  });
+  	});
 });
 
 setInterval(function(){
@@ -23,7 +23,7 @@ setInterval(function(){
 		x: (new Date()).getTime(),
 		y: Math.random() * 3
 	});
-},2000);
+},1000);
 
 http.listen(3000,function(){
 	console.log("Starting server at port: 3000");

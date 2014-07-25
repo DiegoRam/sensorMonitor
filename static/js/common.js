@@ -7,6 +7,8 @@ $(document).ready(function() {
     });
     var socket = io();
     var chart;
+    var chartvu;
+
     $('#containersound').highcharts({
         chart: {
             type: 'spline',
@@ -23,7 +25,7 @@ $(document).ready(function() {
             }
         },
         title: {
-            text: 'real time decibels levels'
+            text: 'real time noise levels'
         },
         xAxis: {
             type: 'datetime',
@@ -50,7 +52,7 @@ $(document).ready(function() {
             enabled: false
         },
         exporting: {
-            enabled: false
+            enabled: true
         },
         series: [{
             name: 'decibels @ raspberryPi',
@@ -70,4 +72,54 @@ $(document).ready(function() {
             })()
         }]
     });
+    $('#containervu').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 0,
+            plotShadow: false
+        },
+        title: {
+            text: 'movement<br>averages',
+            align: 'center',
+            verticalAlign: 'middle',
+            y: 50
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                dataLabels: {
+                    enabled: true,
+                    distance: -50,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'white',
+                        textShadow: '0px 1px 2px black'
+                    }
+                },
+                startAngle: -90,
+                endAngle: 90,
+                center: ['50%', '75%']
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'movement average',
+            innerSize: '50%',
+            data: [
+                ['occupied',   45.0],
+                ['idle',       26.8],
+                ['empty', 28.8],
+                {
+                    name: 'Others',
+                    y: 0.7,
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
+            ]
+        }]
+    });
+
 });
