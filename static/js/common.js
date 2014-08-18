@@ -17,9 +17,14 @@ $(document).ready(function() {
             events: {
                 load: function() {
                     var series = this.series[0];
+                    var realSeries = this.series[1];
                     socket.on("info", function(data){
-                        console.log(data);
+                        console.log("from info event: " + JSON.stringify(data));
                         series.addPoint([data.x,data.y], true, true);
+                    });
+                    socket.on("publish", function(data){
+                        console.log("from publish event: " + JSON.stringify(data));
+                        realSeries.addPoint([data.x, data.y], true, true);
                     });
                 }
             }
@@ -56,6 +61,22 @@ $(document).ready(function() {
         },
         series: [{
             name: 'decibels @ raspberryPi',
+            data: (function() {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
+
+                for (i = -19; i <= 0; i++) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: 0
+                    });
+                }
+                return data;
+            })()
+        },{            
+            name: 'Analog reading from microphone',
             data: (function() {
                 // generate an array of random data
                 var data = [],
