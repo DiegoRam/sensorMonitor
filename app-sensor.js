@@ -20,19 +20,13 @@ io.on('connection',function(socket){
   	});
 });
 
-setInterval(function(){
-	io.emit('info', {
-		x: (new Date()).getTime(),
-		y: Math.random() * 3
-	});
-},1000);
-
 publisher.subscribe(function(data){
 	console.log("printing from client code: " + data)
 	var jsonObj = JSON.parse(data);
 	io.emit('publish',{
 		x: (new Date()).getTime(),
-		y: jsonObj.db / 100
+		y: jsonObj.db / 100,
+		roomStatus: jsonObj.mov
 	});
 });
 
